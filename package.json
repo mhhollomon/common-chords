@@ -1,28 +1,37 @@
 {
-  "name": "common-chords",
+  "name": "common-cords",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "immutable": "^5.1.4",
+    "jotai": "^2.16.0",
+    "radashi": "^12.7.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
-    "@tsconfig/svelte": "^5.0.4",
-    "svelte": "^4.2.19",
-    "svelte-check": "^4.0.2",
-    "tslib": "^2.7.0",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.6"
-  },
-  "packageManager": "yarn@4.5.0",
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "@sveltestrap/sveltestrap": "^6.2.7",
-    "bootstrap": "^5.3.3",
-    "immutable": "^4.3.7"
+    "@eslint/js": "^9.39.1",
+    "@types/bootstrap": "^5.2.10",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.4",
+    "vite-tsconfig-paths": "^6.0.3"
   }
 }

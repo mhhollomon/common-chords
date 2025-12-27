@@ -18,8 +18,7 @@ echo "Building web app"
 echo "####################################################################"
 
 rm -rf ${BUILD_DIR};
-npm ci
-npm run build -- --outDir ${BUILD_DIR} --base ${BASE_HREF}
+yarn build --outDir ${BUILD_DIR} --base ${BASE_HREF}
 
 if [ ! -e  ${BUILD_DIR}/index.html ]; then
     echo "Can't find the web files. Something went wrong"
