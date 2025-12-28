@@ -26,7 +26,7 @@ $theme-colors: (
 
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/reboot";
-//@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/type";
 //@import "../node_modules/bootstrap/scss/images";
 @import "../node_modules/bootstrap/scss/containers";
 @import "../node_modules/bootstrap/scss/grid";
@@ -40,9 +40,6 @@ $theme-colors: (
     background-color: map.get($theme-colors, "primary");
     color : $white;
 }
-
-
-
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -69,24 +66,4 @@ $theme-colors: (
 #root {
   min-height : 75vh;
 
-}
-
-.first-row {
-    grid-row : 1;
-}
-
-.second-row {
-    grid-row : 2;
-}
-
-.third-row {
-    grid-row : 3;
-}
-
-@mixin grid-item {
-    display: inline-flex;
-    height: 2rem;
-	align-items: center;
-	justify-content: center;
-    width : 5rem;
 }

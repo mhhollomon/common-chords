@@ -6,15 +6,6 @@ import { useState } from "react";
 import { Scale } from "~/lib/scale";
 
 
-
-const grid_style = {
-    display: 'grid',
-    gridGap: '1rem 0.5rem',
-    marginRight: '1rem',
-    gridTemplateColumns: '10rem repeat(7, 5rem)',
-    gridTemplateRows: '4rem 4rem',
-};
-
 export type CommonChordsProps = {
     className?: string
 }
@@ -34,6 +25,16 @@ export default function CommonChords({ className }: CommonChordsProps) {
         '\u{1d776}', // eta
     ]
 
+    const matchColors = [
+        '#18f000',
+        '#16d000',
+        '#2090b0',
+        '#e05030',
+        '#169000',
+        '#306070',
+        '#a04050',
+    ]
+
     function empty_match_array() : number[] {
         let retval : number[] = [];
         retval.length = 7;
@@ -50,7 +51,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
         for (let j = 0; j < 7; j++) {
             const chord1 = firstScale.chordForDegree(i + 1);
             const chord2 = secondScale.chordForDegree(j + 1);
-            if (common_2[j] < 0 && chord1.isSame(chord2)) {
+            if (common_2[j] < 0 && chord1.isSameName(chord2)) {
                 common_1[i] = match_index;
                 common_2[j] = match_index;
                 match_index += 1;
@@ -58,28 +59,57 @@ export default function CommonChords({ className }: CommonChordsProps) {
         }
     }
 
+    const cellClasses = "border-dark border-1"
+
     return (
-        <main className={cn("container d-flex flex-column", className)}>
-            <div className="col-5 flex-grow pe-5">
-                <div className="mx-1 ps-1" style={grid_style}>
-                    <div className="first-row">
-                        <KeyPicker scale={firstScale} setScale={setFirstScale} />
-                    </div>
-                    {range(1, 8).map((degree) => {
-
-                        return <ChordDisplay key={degree} matchSymbol={common_1[degree-1] >= 0 ? matchSymbol[common_1[degree-1]] : undefined}
-                                chordName={firstScale.chordForDegree(degree).name()} className="first-row" />
-                    })}
-
-                    <div className="second-row">
-                        <KeyPicker scale={secondScale} setScale={setSecondScale} />
-                    </div>
-                    {range(1, 8).map((degree) => {
-                        return <ChordDisplay key={degree} matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
-                                chordName={secondScale.chordForDegree(degree).name()} className="second-row" />
-                    })}
-                </div>
+        <main className={cn("container", className)}>
+            <div className="m-4">
+                <h3>Find Common Chords Between Keys</h3>
+                <p>Just because.</p>
             </div>
+            <table className="table text-center">
+                <thead>
+                    <tr><th className={cellClasses} scope="col" key="0" style={{width: "15rem"}}>Key</th>
+                    {range(1, 8).map((degree) => {
+                        return <th className={cellClasses} scope="col" key={degree} style={{width: "8rem"}}>{degree}</th>
+                    })}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style={{height: "5rem"}}>
+                        <td className={cellClasses}><KeyPicker scale={firstScale} setScale={setFirstScale} /></td>
+                    {range(1, 8).map((degree) => {
+
+                        let styles : React.CSSProperties = {}
+                        if (common_1[degree-1] >= 0) {
+                            styles["backgroundColor"] = matchColors[common_1[degree-1]]
+                        }
+
+                        return <td className={cellClasses} key={degree} style={styles}>
+                            <ChordDisplay
+                                matchSymbol={common_1[degree-1] >= 0 ? matchSymbol[common_1[degree-1]] : undefined}
+                                bgColor={common_1[degree-1] >= 0 ? matchColors[common_1[degree-1]] : undefined}
+                                chordName={firstScale.chordForDegree(degree).name()} />
+                            </td>
+                    })}
+                    </tr>
+                    <tr style={{height: "5rem"}}>
+                        <td className={cellClasses}><KeyPicker scale={secondScale} setScale={setSecondScale} /></td>
+                    {range(1, 8).map((degree) => {
+                        let styles : React.CSSProperties = {}
+                        if (common_2[degree-1] >= 0) {
+                            styles["backgroundColor"] = matchColors[common_2[degree-1]]
+                        }
+
+                        return <td className={cellClasses} key={degree} style={styles}>
+                            <ChordDisplay  matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
+                                chordName={secondScale.chordForDegree(degree).name()} />
+                        </td>
+                    })}
+                    </tr>
+                </tbody>
+            </table>
+
         </main>
     )
 }

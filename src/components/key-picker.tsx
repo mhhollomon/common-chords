@@ -1,4 +1,3 @@
-//import {type Scale, type ScaleType, ALL_SCALE_TYPES} from "~/lib/scale";
 import {ALL_SCALE_TYPES, Scale, type ScaleType} from "~/lib/scale";
 
 export type KeyPickerProps = {
@@ -11,9 +10,9 @@ export default function KeyPicker({ scale, setScale } : KeyPickerProps) {
 
     return (
         <div>
-<input type="text" className="d-inline" style={{maxWidth: "60px"}} value={scale.center}
+<input type="text" name="center" className="btn d-inline" style={{maxWidth: "60px"}} defaultValue={scale.center}
         onChange={(e) => setScale(scale.setCenter(e.target.value))} />
-<select className="d-inline"  style={{maxWidth: "150px"}} value={scale_type}
+<select className="btn d-inline"  style={{maxWidth: "150px"}} value={scale_type}
         onChange={(e) => setScale(scale.setType(e.target.value as ScaleType))}>
     {ALL_SCALE_TYPES.map((s) => <option key={s} value={s}>{s}</option>)}
 </select>
