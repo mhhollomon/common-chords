@@ -14,8 +14,8 @@ export default function ChordDisplay({className, matchSymbol, chordName, bgColor
     }
 
     return (
-        <div className={className} style={styles}>{chordName}
-        {matchSymbol ? <p>{matchSymbol}</p> : <p></p>}
+        <div className={className} style={styles}><p className="m-0 fs-6">{chordName}</p>
+        {matchSymbol ? <p className="fs-5">{matchSymbol}</p> : <p></p>}
         </div>
     )
 }

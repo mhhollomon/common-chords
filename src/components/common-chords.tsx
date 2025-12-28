@@ -26,13 +26,13 @@ export default function CommonChords({ className }: CommonChordsProps) {
     ]
 
     const matchColors = [
-        '#18f000',
-        '#16d000',
-        '#2090b0',
-        '#e05030',
-        '#169000',
-        '#306070',
+        '#60f060',
+        '#20a0f0',
+        '#f05030',
+        '#16a000',
+        '#2070a0',
         '#a04050',
+        '#e7e42fff',
     ]
 
     function empty_match_array() : number[] {
