@@ -29,10 +29,10 @@ export default function CommonChords({ className }: CommonChordsProps) {
         '#60f060',
         '#20a0f0',
         '#f05030',
+        '#e7e42fff',
         '#16a000',
         '#2070a0',
         '#a04050',
-        '#e7e42fff',
     ]
 
     function empty_match_array() : number[] {
