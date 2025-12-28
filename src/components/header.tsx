@@ -6,11 +6,16 @@ import { useAtom } from "jotai/react";
 export const themeAtom = atomWithStorage('common-chords-theme', 'light', undefined, {getOnInit: true})
 export const themes = ["light", "dark"];
 
+export type HeaderProps = {
+    title: string,
+    avatar : string
+}
 
-export default function Header() {
+
+export default function Header({title, avatar} : HeaderProps) {
     const  [ theme, setTheme ] = useAtom(themeAtom);
 
-    const image_src =   import.meta.env.BASE_URL + "IMG_9131.png";
+    const image_src =   import.meta.env.BASE_URL + avatar;
 
     useEffect(() => {
         console.log(`setting theme: ${theme}`);
@@ -31,7 +36,7 @@ export default function Header() {
     return (
         <header className="d-flex justify-content-between align-items-center w-100 mb-3 bg-gray">
             <img src={image_src} width="40" height="40" className="d-inline-block align-text-top ms-3"></img>
-            <p className="my-0 mx-3 align-content-center fs-3">SeqGen</p>
+            <p className="my-0 mx-3 align-content-center fs-3">{title}</p>
             <button className="btn btn-secondary mx-3 my-2" onClick={handleClick}><i className={iconClasses}></i>{nextTheme}</button>
         </header>
     );

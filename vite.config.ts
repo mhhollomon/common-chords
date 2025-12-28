@@ -3,6 +3,30 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from "vite-tsconfig-paths";
 
 
-export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
-})
+export default defineConfig(({ command, mode }) => {
+    const isProduction = (command === 'build' && mode === 'production');
+
+    return {
+        base: (isProduction ? '/common-chords/' : ''),
+        baseUrl: (isProduction ? '/common-chords/' : ''),
+        plugins: [react(), tsconfigPaths()],
+        css: {
+            transformer: 'lightningcss',
+            preprocessorOptions: {
+                scss: {
+                    silenceDeprecations: [
+                        'import',
+                        'color-functions',
+                        'global-builtin',
+                        'if-function',
+                    ],
+                },
+            },
+        },
+        build: {
+            outDir: 'build-web-deploy',
+            cssMinify: 'lightningcss',
+        },
+
+    };
+});

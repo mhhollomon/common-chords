@@ -1,0 +1,92 @@
+@use "sass:map";
+
+@import "../node_modules/bootstrap/scss/functions";
+
+
+$white: #ffffff;
+
+$theme-colors: (
+    "light":      #bab8c0,
+    "dark":       #050001,
+    "primary":    #2d471e,
+    "secondary":  #cfd7d8,
+    "info":       #0071d8,
+    "success":    #18b000,
+    "warning":    #fcc500,
+    "danger":     #f7004e,
+);
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/root";
+
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/reboot";
+//@import "../node_modules/bootstrap/scss/type";
+//@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/helpers";
+@import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/forms";
+
+@import "../node_modules/bootstrap/scss/utilities/api";
+
+.bg-gray {
+    background-color: map.get($theme-colors, "primary");
+    color : $white;
+}
+
+
+
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.header-logo {
+  width : 100px;
+  height: 100px;
+  padding : 0;
+}
+
+#root {
+  min-height : 75vh;
+
+}
+
+.first-row {
+    grid-row : 1;
+}
+
+.second-row {
+    grid-row : 2;
+}
+
+.third-row {
+    grid-row : 3;
+}
+
+@mixin grid-item {
+    display: inline-flex;
+    height: 2rem;
+	align-items: center;
+	justify-content: center;
+    width : 5rem;
+}
