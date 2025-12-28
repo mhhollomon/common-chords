@@ -18,7 +18,7 @@ echo "Building web app"
 echo "####################################################################"
 
 rm -rf ${BUILD_DIR};
-npm run build --outDir ${BUILD_DIR} --base ${BASE_HREF}
+npm run build
 
 if [ ! -e  ${BUILD_DIR}/index.html ]; then
     echo "Can't find the web files. Something went wrong"
@@ -45,5 +45,6 @@ echo "####################################################################"
 
 echo "####################################################################"
 echo "Check git status above and commit/push if everything looks okay"
+echo "cd ${OUTPUT_REPO_DIR}"
 echo "####################################################################"
 
