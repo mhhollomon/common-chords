@@ -2,15 +2,21 @@ export type ChordDisplayProps = {
     className?: string,
     matchSymbol?: string,
     chordName: string,
-    bgColor?: string
+    bgColor?: string,
+    fgColor?: string
 }
 
-export default function ChordDisplay({className, matchSymbol, chordName, bgColor}: ChordDisplayProps) {
+export default function ChordDisplay(
+    {className, matchSymbol, chordName, bgColor, fgColor}: ChordDisplayProps) {
 
     let styles : React.CSSProperties = {}
 
     if (bgColor) {
         styles["backgroundColor"] = bgColor;
+    }
+
+    if (fgColor) {
+        styles["color"] = fgColor;
     }
 
     return (

@@ -25,7 +25,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
         '\u{1d776}', // eta
     ]
 
-    const matchColors = [
+    const matchBgColors = [
         '#60f060',
         '#20a0f0',
         '#f05030',
@@ -33,6 +33,16 @@ export default function CommonChords({ className }: CommonChordsProps) {
         '#16a000',
         '#2070a0',
         '#a04050',
+    ]
+
+    const matchFgColors = [
+        '#111111',
+        undefined,
+        undefined,
+        '#111111',
+        undefined,
+        undefined,
+        '#eeeeee',
     ]
 
     function empty_match_array() : number[] {
@@ -63,7 +73,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
 
     return (
         <main className={cn("container", className)}>
-            <div className="m-4">
+            <div className="my-4">
                 <h3>Find Common Chords Between Keys</h3>
                 <p>Just because.</p>
             </div>
@@ -80,15 +90,19 @@ export default function CommonChords({ className }: CommonChordsProps) {
                         <td className={cellClasses}><KeyPicker scale={firstScale} setScale={setFirstScale} /></td>
                     {range(1, 8).map((degree) => {
 
+                        const fgColor = common_1[degree-1] >= 0 ? matchFgColors[common_1[degree-1]] : undefined
+                        const bgColor = common_1[degree-1] >= 0 ? matchBgColors[common_1[degree-1]] : undefined
                         let styles : React.CSSProperties = {}
                         if (common_1[degree-1] >= 0) {
-                            styles["backgroundColor"] = matchColors[common_1[degree-1]]
+                            styles["backgroundColor"] = bgColor;
                         }
+
 
                         return <td className={cellClasses} key={degree} style={styles}>
                             <ChordDisplay
                                 matchSymbol={common_1[degree-1] >= 0 ? matchSymbol[common_1[degree-1]] : undefined}
-                                bgColor={common_1[degree-1] >= 0 ? matchColors[common_1[degree-1]] : undefined}
+                                bgColor={bgColor}
+                                fgColor={fgColor}
                                 chordName={firstScale.chordForDegree(degree).name()} />
                             </td>
                     })}
@@ -97,13 +111,18 @@ export default function CommonChords({ className }: CommonChordsProps) {
                         <td className={cellClasses}><KeyPicker scale={secondScale} setScale={setSecondScale} /></td>
                     {range(1, 8).map((degree) => {
                         let styles : React.CSSProperties = {}
+                        const fgColor = common_2[degree-1] >= 0 ? matchFgColors[common_2[degree-1]] : undefined
+                        const bgColor = common_2[degree-1] >= 0 ? matchBgColors[common_2[degree-1]] : undefined
                         if (common_2[degree-1] >= 0) {
-                            styles["backgroundColor"] = matchColors[common_2[degree-1]]
+                            styles["backgroundColor"] = bgColor
                         }
-
                         return <td className={cellClasses} key={degree} style={styles}>
-                            <ChordDisplay  matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
-                                chordName={secondScale.chordForDegree(degree).name()} />
+                            <ChordDisplay
+                                matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
+                                chordName={secondScale.chordForDegree(degree).name()}
+                                bgColor={bgColor}
+                                fgColor={fgColor}
+                                />
                         </td>
                     })}
                     </tr>
