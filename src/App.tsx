@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-    <Header title="Common Chords" avatar="IMG_9131.png"/>
+    <Header title="Common Chords" avatar="notes-logo.svg"/>
     <CommonChords />
     </>
   )
