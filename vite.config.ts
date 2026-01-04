@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from "vite-tsconfig-paths";
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 
 export default defineConfig(({ command, mode }) => {
@@ -9,20 +10,7 @@ export default defineConfig(({ command, mode }) => {
     return {
         base: (isProduction ? '/common-chords/' : ''),
         baseUrl: (isProduction ? '/common-chords/' : ''),
-        plugins: [react(), tsconfigPaths()],
-        css: {
-            transformer: 'lightningcss',
-            preprocessorOptions: {
-                scss: {
-                    silenceDeprecations: [
-                        'import',
-                        'color-functions',
-                        'global-builtin',
-                        'if-function',
-                    ],
-                },
-            },
-        },
+        plugins: [react(), tsconfigPaths(), vanillaExtractPlugin()],
         build: {
             outDir: 'build-web-deploy',
             cssMinify: 'lightningcss',
