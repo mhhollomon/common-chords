@@ -1,0 +1,23 @@
+.chord-table {
+    text-align: center;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+.chord-table td, th {
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+main {
+    width : 100vw;
+    padding-inline-start: 2vw;
+    padding-inline-end: 2vw;
+    @media (min-width: 768px) {
+        padding-inline-start: 10vw;
+        padding-inline-end: 10vw;
+    }
+}

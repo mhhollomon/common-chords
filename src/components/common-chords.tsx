@@ -1,16 +1,13 @@
 
-import { cn, range } from "~/lib/utils"
+import { range } from "~/lib/utils"
 import KeyPicker from "./key-picker";
 import ChordDisplay from "~/components/chord-display";
 import { useState } from "react";
 import { Scale } from "~/lib/scale";
+import './common-chords.css'
 
 
-export type CommonChordsProps = {
-    className?: string
-}
-
-export default function CommonChords({ className }: CommonChordsProps) {
+export default function CommonChords() {
     const [firstScale, setFirstScale] = useState<Scale>(new Scale());
     const [secondScale, setSecondScale] = useState<Scale>(new Scale('G', 'major'));
 
@@ -68,26 +65,23 @@ export default function CommonChords({ className }: CommonChordsProps) {
             }
         }
     }
-
-    const cellClasses = "border-dark border-1"
-
     return (
-        <main className={cn("container", className)}>
+        <main>
             <div className="my-4">
                 <h3>Find Common Chords Between Keys</h3>
-                <p>Just because.</p>
+                <p>Matching chords will have the same color background and same Greek letter.</p>
             </div>
-            <table className="table text-center">
+            <table className="table chord-table">
                 <thead>
-                    <tr><th className={cellClasses} scope="col" key="0" style={{width: "15rem"}}>Key</th>
+                    <tr><th scope="col" key="0" style={{width: "15rem"}}>Key</th>
                     {range(1, 8).map((degree) => {
-                        return <th className={cellClasses} scope="col" key={degree} style={{width: "8rem"}}>{degree}</th>
+                        return <th scope="col" key={degree} style={{width: "8rem"}}>{degree}</th>
                     })}
                     </tr>
                 </thead>
                 <tbody>
                     <tr style={{height: "5rem"}}>
-                        <td className={cellClasses}><KeyPicker scale={firstScale} setScale={setFirstScale} /></td>
+                        <td><KeyPicker scale={firstScale} setScale={setFirstScale} /></td>
                     {range(1, 8).map((degree) => {
 
                         const fgColor = common_1[degree-1] >= 0 ? matchFgColors[common_1[degree-1]] : undefined
@@ -98,7 +92,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
                         }
 
 
-                        return <td className={cellClasses} key={degree} style={styles}>
+                        return <td key={degree} style={styles}>
                             <ChordDisplay
                                 matchSymbol={common_1[degree-1] >= 0 ? matchSymbol[common_1[degree-1]] : undefined}
                                 bgColor={bgColor}
@@ -108,7 +102,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
                     })}
                     </tr>
                     <tr style={{height: "5rem"}}>
-                        <td className={cellClasses}><KeyPicker scale={secondScale} setScale={setSecondScale} /></td>
+                        <td><KeyPicker scale={secondScale} setScale={setSecondScale} /></td>
                     {range(1, 8).map((degree) => {
                         let styles : React.CSSProperties = {}
                         const fgColor = common_2[degree-1] >= 0 ? matchFgColors[common_2[degree-1]] : undefined
@@ -116,7 +110,7 @@ export default function CommonChords({ className }: CommonChordsProps) {
                         if (common_2[degree-1] >= 0) {
                             styles["backgroundColor"] = bgColor
                         }
-                        return <td className={cellClasses} key={degree} style={styles}>
+                        return <td key={degree} style={styles}>
                             <ChordDisplay
                                 matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
                                 chordName={secondScale.chordForDegree(degree).name()}
