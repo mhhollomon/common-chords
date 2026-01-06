@@ -1,6 +1,5 @@
 import Header from "./components/header"
 import CommonChords from "./components/common-chords"
-import './global.css'
 
 function App() {
 

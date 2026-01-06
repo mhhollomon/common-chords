@@ -2,13 +2,13 @@
     text-align: center;
     border-collapse: collapse;
     border-width: 1px;
-    border-color: black;
+    border-color: var(--border-color);
     border-style: solid;
 }
 
 .chord-table td, th {
     border-width: 1px;
-    border-color: black;
+    border-color: var(--border-color);
     border-style: solid;
 }
 

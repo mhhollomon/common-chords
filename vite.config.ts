@@ -14,6 +14,9 @@ export default defineConfig(({ command, mode }) => {
             outDir: 'build-web-deploy',
             cssMinify: 'lightningcss',
         },
+        css : {
+            transformer: 'lightningcss'
+        }
 
     };
 });
