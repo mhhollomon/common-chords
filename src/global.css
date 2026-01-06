@@ -1,13 +1,16 @@
 :root {
-    --border-color : black;
+    --color-border : black;
+    --color-primary: #2d471e;
     --fg-color : black;
     --bg-color : white;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
 }
 
 [data-bs-theme="dark"] {
-    --border-color : white;
+    --color-border : #777777;
     --fg-color : white;
-    --bg-color : black;
+    --bg-color : #212529;
 }
 
 
@@ -19,6 +22,8 @@ body {
 input, select, button, optgroup, textarea {
     height : 2rem;
     border-radius: .5rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-border);
     margin : 0 .25rem;
+    color : var(--fg-color);
+    background-color : var(--bg-color);
 }

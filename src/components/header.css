@@ -6,7 +6,7 @@ header {
     padding-inline-start : 1rem;
     padding-inline-end: 1rem;
     color : white;
-    background-color: #2d471e;
+    background-color: var(--color-primary);
 
 }
 
