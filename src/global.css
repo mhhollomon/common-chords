@@ -1,8 +1,10 @@
 :root {
+    /* THEME VARS */
     --color-border : black;
     --color-primary: #2d471e;
     --fg-color : black;
     --bg-color : white;
+
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
 }
@@ -17,12 +19,14 @@
 body {
     background-color : var(--bg-color);
     color : var(--fg-color);
+
+    --border-std : 1px solid var(--color-border);
 }
 
 input, select, button, optgroup, textarea {
     height : 2rem;
     border-radius: .5rem;
-    border: 1px solid var(--color-border);
+    border: var(--border-std);
     margin : 0 .25rem;
     color : var(--fg-color);
     background-color : var(--bg-color);
