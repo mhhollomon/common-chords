@@ -13,7 +13,7 @@
 }
 
 main {
-    width : 100vw;
+/*     width : 100vw; */
     padding-inline-start: 2vw;
     padding-inline-end: 2vw;
     @media (min-width: 768px) {
@@ -21,3 +21,22 @@ main {
         padding-inline-end: 10vw;
     }
 }
+
+.enharmonics {
+    margin : 2rem 0;
+    legend {
+        display : inline-block;
+
+    }
+}
+
+.enharm-menu {
+    display : inline-block;
+    margin-left  : 1rem;
+
+    input {
+        height : auto;
+        accent-color : var(--accent-color);
+    }
+}
+

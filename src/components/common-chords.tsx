@@ -1,4 +1,3 @@
-
 import { range } from "~/lib/utils"
 import KeyPicker from "./key-picker";
 import ChordDisplay from "~/components/chord-display";
@@ -10,6 +9,7 @@ import './common-chords.css'
 export default function CommonChords() {
     const [firstScale, setFirstScale] = useState<Scale>(new Scale());
     const [secondScale, setSecondScale] = useState<Scale>(new Scale('G', 'major'));
+    const [enharmonicsEqual, setEnharmonicsEqual] = useState<boolean>(false);
 
 
     const matchSymbol = [
@@ -42,8 +42,8 @@ export default function CommonChords() {
         '#eeeeee',
     ]
 
-    function empty_match_array() : number[] {
-        let retval : number[] = [];
+    function empty_match_array(): number[] {
+        let retval: number[] = [];
         retval.length = 7;
         retval = retval.fill(-10);
         return retval;
@@ -54,10 +54,21 @@ export default function CommonChords() {
 
     let match_index = 0;
 
+    let enScale1 = firstScale;
+    let enScale2 = secondScale;
+
+    if (enharmonicsEqual) {
+        enScale1 = new Scale(firstScale.root.toSharp().name(), firstScale.type);
+        enScale2 = new Scale(secondScale.root.toSharp().name(), secondScale.type);
+    }
+
+    console.log(`enScale1: ${enScale1.name()}, enScale2: ${enScale2.name()}`);
+
     for (let i = 0; i < 7; i++) {
+        const chord1 = enScale1.chordForDegree(i + 1);
         for (let j = 0; j < 7; j++) {
-            const chord1 = firstScale.chordForDegree(i + 1);
-            const chord2 = secondScale.chordForDegree(j + 1);
+            const chord2 = enScale2.chordForDegree(j + 1);
+            console.log(`chord1: ${chord1.name()}, chord2: ${chord2.name()}`);
             if (common_2[j] < 0 && chord1.isSameName(chord2)) {
                 common_1[i] = match_index;
                 common_2[j] = match_index;
@@ -70,55 +81,76 @@ export default function CommonChords() {
             <div className="my-4">
                 <h3>Find Common Chords Between Keys</h3>
                 <p>Matching chords will have the same color background and same Greek letter.</p>
+                <form className="enharmonics">
+                    <fieldset className="enharm-fieldset">
+                        <legend className="enharm-legend">Enharmonics are</legend>
+                        <div className="enharm-menu">
+                            <div className="enharm-choice">
+                                <input type="radio" name="enharm-radio" checked={enharmonicsEqual}
+                                    value="1"
+                                    onChange={() => setEnharmonicsEqual(true)}
+                                    className="enharm-checkbox" id="enharm-true" />
+                                <label className="enharm-label" htmlFor="enharm-true">Equal</label>
+                            </div>
+                            <div className="enharm-choice">
+                                <input type="radio" name="enharm-radio" checked={!enharmonicsEqual}
+                                    value="0"
+                                    onChange={() => setEnharmonicsEqual(false)}
+                                    className="enharm-checkbox" id="enharm-false" />
+                                <label className="enharm-label" htmlFor="enharm-false">NOT Equal</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
             <table className="table chord-table">
                 <thead>
-                    <tr><th scope="col" key="0" style={{width: "15rem"}}>Key</th>
-                    {range(1, 8).map((degree) => {
-                        return <th scope="col" key={degree} style={{width: "8rem"}}>{degree}</th>
-                    })}
+                    <tr><th scope="col" key="0" style={{ width: "15rem" }}>Key</th>
+                        {range(1, 8).map((degree) => {
+                            return <th scope="col" key={degree} style={{ width: "8rem" }}>{degree}</th>
+                        })}
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style={{height: "5rem"}}>
+                    <tr style={{ height: "5rem" }}>
                         <td><KeyPicker scale={firstScale} setScale={setFirstScale} /></td>
-                    {range(1, 8).map((degree) => {
+                        {range(1, 8).map((degree) => {
 
-                        const fgColor = common_1[degree-1] >= 0 ? matchFgColors[common_1[degree-1]] : undefined
-                        const bgColor = common_1[degree-1] >= 0 ? matchBgColors[common_1[degree-1]] : undefined
-                        let styles : React.CSSProperties = {}
-                        if (common_1[degree-1] >= 0) {
-                            styles["backgroundColor"] = bgColor;
-                        }
+                            const fgColor = common_1[degree - 1] >= 0 ? matchFgColors[common_1[degree - 1]] : undefined
+                            const bgColor = common_1[degree - 1] >= 0 ? matchBgColors[common_1[degree - 1]] : undefined
+                            let styles: React.CSSProperties = {}
+                            if (common_1[degree - 1] >= 0) {
+                                styles["backgroundColor"] = bgColor;
+                            }
 
 
-                        return <td key={degree} style={styles}>
-                            <ChordDisplay
-                                matchSymbol={common_1[degree-1] >= 0 ? matchSymbol[common_1[degree-1]] : undefined}
-                                bgColor={bgColor}
-                                fgColor={fgColor}
-                                chordName={firstScale.chordForDegree(degree).name()} />
+                            return <td key={degree} style={styles}>
+                                <ChordDisplay
+                                    matchSymbol={common_1[degree - 1] >= 0 ? matchSymbol[common_1[degree - 1]] : undefined}
+                                    bgColor={bgColor}
+                                    fgColor={fgColor}
+                                    chordName={firstScale.chordForDegree(degree).name()} />
                             </td>
-                    })}
+                        })}
                     </tr>
-                    <tr style={{height: "5rem"}}>
+                    <tr style={{ height: "5rem" }}>
                         <td><KeyPicker scale={secondScale} setScale={setSecondScale} /></td>
-                    {range(1, 8).map((degree) => {
-                        let styles : React.CSSProperties = {}
-                        const fgColor = common_2[degree-1] >= 0 ? matchFgColors[common_2[degree-1]] : undefined
-                        const bgColor = common_2[degree-1] >= 0 ? matchBgColors[common_2[degree-1]] : undefined
-                        if (common_2[degree-1] >= 0) {
-                            styles["backgroundColor"] = bgColor
-                        }
-                        return <td key={degree} style={styles}>
-                            <ChordDisplay
-                                matchSymbol={common_2[degree-1] >= 0 ? matchSymbol[common_2[degree-1]] : undefined}
-                                chordName={secondScale.chordForDegree(degree).name()}
-                                bgColor={bgColor}
-                                fgColor={fgColor}
+                        {range(1, 8).map((degree) => {
+                            let styles: React.CSSProperties = {}
+                            const fgColor = common_2[degree - 1] >= 0 ? matchFgColors[common_2[degree - 1]] : undefined
+                            const bgColor = common_2[degree - 1] >= 0 ? matchBgColors[common_2[degree - 1]] : undefined
+                            if (common_2[degree - 1] >= 0) {
+                                styles["backgroundColor"] = bgColor
+                            }
+                            return <td key={degree} style={styles}>
+                                <ChordDisplay
+                                    matchSymbol={common_2[degree - 1] >= 0 ? matchSymbol[common_2[degree - 1]] : undefined}
+                                    chordName={secondScale.chordForDegree(degree).name()}
+                                    bgColor={bgColor}
+                                    fgColor={fgColor}
                                 />
-                        </td>
-                    })}
+                            </td>
+                        })}
                     </tr>
                 </tbody>
             </table>
