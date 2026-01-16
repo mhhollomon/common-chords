@@ -1,7 +1,12 @@
 :root {
-    --border-color : black;
+    /* THEME VARS */
+    --color-border : black;
+    --color-primary: #2d471e;
     --fg-color : black;
     --bg-color : white;
+
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
     --brand-color :#2d471e;
     --accent-color : var(--brand-color);
 
@@ -12,8 +17,10 @@ html {
 }
 
 [data-bs-theme="dark"] {
+    --color-border : #777777;
     --border-color : #dee2e6;
     --fg-color : white;
+    --bg-color : #212529;
     --bg-color : #212529;
     --accent-color : #83e64a;
 }
@@ -22,6 +29,8 @@ html {
 body {
     background-color : var(--bg-color);
     color : var(--fg-color);
+
+    --border-std : 1px solid var(--color-border);
     font-family: ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari, 'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
     /* font-family: system-ui, sans-serif; */
 }
@@ -29,8 +38,10 @@ body {
 input, select, button, optgroup, textarea {
     height : 2rem;
     border-radius: .5rem;
-    border: 1px solid var(--border-color);
+    border: var(--border-std);
     margin : 0 .25rem;
+    color : var(--fg-color);
+    background-color : var(--bg-color);
     accent-color: var(--accent-color);
     background-color: var(--bg-color);
     color: var(--fg-color);

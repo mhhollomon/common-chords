@@ -1,15 +1,11 @@
 .chord-table {
     text-align: center;
     border-collapse: collapse;
-    border-width: 1px;
-    border-color: var(--border-color);
-    border-style: solid;
+    border : var(--border-std);
 }
 
 .chord-table td, th {
-    border-width: 1px;
-    border-color: var(--border-color);
-    border-style: solid;
+    border : var(--border-std);
 }
 
 main {
