@@ -11,17 +11,17 @@ interface GenericNoteData {
     prev : number
 }
 
-  
+
 function gnd(name: GenericNoteClass, prev : number, next : number) : GenericNoteData {
     return {'name' : name, 'next' : next, 'prev' : prev };
 }
-  
+
 const genericNotes : GenericNoteData[] = [
     gnd('A', 2, 2), gnd('B', 2, 1), gnd('C', 1, 2), gnd('D', 2, 2), gnd('E', 2, 1), gnd('F', 1, 2), gnd('G', 2, 2),
     gnd('A', 2, 2), gnd('B', 2, 1), gnd('C', 1, 2), gnd('D', 2, 2), gnd('E', 2, 1), gnd('F', 1, 2), gnd('G', 2, 2),
 ]
 
-  
+
 
 /* number of semi-tones between notes */
 const scaleStepData = {
@@ -33,10 +33,24 @@ const scaleStepData = {
     phrygian :  [0, 1, 2, 2, 2, 1, 2 ],
     locrian :   [0, 1, 2, 2, 1, 2, 2 ],
     augmented : [0, 2, 2, 2, 2, 1, 2 ],
+    // Harmonic Major and modes
+    harmonicMajor : [0, 2, 2, 1, 2, 1, 3 ],
+    dorianFlat5 :   [0, 2, 1, 2, 1, 3, 1 ],
+    phrygianFlat4 : [0, 1, 2, 1, 3, 1, 2 ],
+    lydianFlat3 :   [0, 2, 1, 3, 1, 2, 2 ],
+    mixolydianFlat2 : [0, 1, 3, 1, 2, 2, 1],
+    lydianAugmentedSharp2 : [0, 3, 2, 2, 1, 2],
+    locrianDoubleFlat7 : [0, 2, 2, 1, 2, 1],
+
   } as const;
 
-export const ALL_SCALE_TYPES = ['major', 'minor', 'mixolydian', 'dorian', 'lydian', 'phrygian', 'locrian' ] as const;
-type ScaleTypeTuple = typeof ALL_SCALE_TYPES; 
+export const ALL_SCALE_TYPES = ['major', 'minor', 'mixolydian',
+    'dorian', 'lydian', 'phrygian', 'locrian', 'augmented',
+    'harmonicMajor', 'dorianFlat5', 'phrygianFlat4',
+    'lydianFlat3', 'mixolydianFlat2', 'lydianAugmentedSharp2',
+    'locrianDoubleFlat7' ] as const;
+
+type ScaleTypeTuple = typeof ALL_SCALE_TYPES;
 export type ScaleType = ScaleTypeTuple[number];
 
 
@@ -59,7 +73,7 @@ export class Scale implements ScaleProps {
     get root() { return this._root; }
 
     private _notesCache : Note[] = [];
- 
+
     constructor();
     constructor(scale : Scale);
     constructor(props : Partial<ScaleProps>);
@@ -122,9 +136,9 @@ export class Scale implements ScaleProps {
         while(genericNotes[index].name != current_generic_note) {
             index += 1;
         }
-    
+
         this._notesCache.push(this.root);
-        
+
         let scaleDegree = 1;
         while (scaleDegree < 7) {
             index += 1;
@@ -132,13 +146,13 @@ export class Scale implements ScaleProps {
             const gnd = genericNotes[index];
             const stepSize = gnd.prev;
             const neededStepSize = scaleSteps[scaleDegree];
-    
+
             let newAlter = this._notesCache.slice(-1)[0].alter;
-    
+
             if (stepSize == neededStepSize) {
                 // We want this note, but it needs to be altered the same
                 // way that our current note is altered (to preserve the step size)
-        
+
                 // So, do nothing.
             } else if (stepSize < neededStepSize) {
                 // Need to alter this new note up one from the last;
@@ -147,15 +161,15 @@ export class Scale implements ScaleProps {
                 // Need to alter this new note down one from the last;
                 newAlter -= 1;
             }
-    
+
             this._notesCache.push(new Note(gnd.name, newAlter));
             scaleDegree += 1;
         }
-    
+
     }
 
     notesOfScale() : List<Note> {
-        this.fill_note_cache();        
+        this.fill_note_cache();
         return List<Note>(this._notesCache);
     }
 
@@ -168,7 +182,7 @@ export class Scale implements ScaleProps {
         this.fill_note_cache();
 
         const index = (degree-1) % 7;
-        
+
         const note = this._notesCache[index];
         return note;
 
