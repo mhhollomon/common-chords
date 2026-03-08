@@ -42,13 +42,27 @@ const scaleStepData = {
     lydianAugmentedSharp2 : [0, 3, 2, 2, 1, 2],
     locrianDoubleFlat7 : [0, 2, 2, 1, 2, 1],
 
+    //Harmonic Minor and modes
+    harmonicMinor :    [ 0, 2, 1, 2, 2, 1, 3],
+    locrianSharp6 :    [ 0, 1, 2, 2, 1, 3, 1],
+    ionianSharp5  :    [ 0, 2, 2, 1, 3, 1, 2],
+    dorianSharp4  :    [ 0, 2, 1, 3, 1, 2, 1],
+    phrygianDominant : [ 0, 1, 3, 1, 2, 1, 2],
+    lydianSharp2 :     [ 0, 3, 1, 2, 1, 2, 2],
+    superLocrian :     [ 0, 1, 2, 1, 2, 2, 1],
+
   } as const;
 
-export const ALL_SCALE_TYPES = ['major', 'minor', 'mixolydian',
-    'dorian', 'lydian', 'phrygian', 'locrian', 'augmented',
+export const ALL_SCALE_TYPES = [
+    'major', 'minor', 'mixolydian',
+    'dorian', 'lydian', 'phrygian', 'locrian',
+    'augmented',
     'harmonicMajor', 'dorianFlat5', 'phrygianFlat4',
     'lydianFlat3', 'mixolydianFlat2', 'lydianAugmentedSharp2',
-    'locrianDoubleFlat7' ] as const;
+    'locrianDoubleFlat7',
+    'harmonicMinor', 'locrianSharp6', 'ionianSharp5',
+    'dorianSharp4', 'phrygianDominant', 'lydianSharp2',
+    'superLocrian' ] as const;
 
 type ScaleTypeTuple = typeof ALL_SCALE_TYPES;
 export type ScaleType = ScaleTypeTuple[number];
