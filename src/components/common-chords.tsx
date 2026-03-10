@@ -129,7 +129,7 @@ export default function CommonChords() {
                                     matchSymbol={common_1[degree - 1] >= 0 ? matchSymbol[common_1[degree - 1]] : undefined}
                                     bgColor={bgColor}
                                     fgColor={fgColor}
-                                    chordName={firstScale.chordForDegree(degree).name()} />
+                                    chordName={firstScale.chordForDegree(degree).nameUnicode()} />
                             </td>
                         })}
                     </tr>
@@ -145,7 +145,7 @@ export default function CommonChords() {
                             return <td key={degree} style={styles}>
                                 <ChordDisplay
                                     matchSymbol={common_2[degree - 1] >= 0 ? matchSymbol[common_2[degree - 1]] : undefined}
-                                    chordName={secondScale.chordForDegree(degree).name()}
+                                    chordName={secondScale.chordForDegree(degree).nameUnicode()}
                                     bgColor={bgColor}
                                     fgColor={fgColor}
                                 />
